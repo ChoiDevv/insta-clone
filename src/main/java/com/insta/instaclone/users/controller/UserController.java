@@ -10,11 +10,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-
-    private final UserService userService;
-
-    @PostMapping("/api/v1/sign-up")
-    public String signUp(@RequestBody UserInfoRequestDto userInfoRequestDto) throws IllegalAccessException {
-        return userService.signUp(userInfoRequestDto);
-    }
 }
