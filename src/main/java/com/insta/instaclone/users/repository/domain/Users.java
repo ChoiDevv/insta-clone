@@ -3,10 +3,9 @@ package com.insta.instaclone.users.repository.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @EntityListeners(AuditingEntityListener.class)
 @Entity
@@ -15,4 +14,22 @@ import javax.persistence.Table;
 @Table(name = "insta_users")
 public class Users {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
+    private String username;
+
+    @Column
+    private String password;
+
+    @Column
+    private String email;
+
+    public Users(String username, String password, String email) {
+        this.username = username;
+        this.password = new BCryptPasswordEncoder().encode(password);
+        this.email = email;
+    }
 }

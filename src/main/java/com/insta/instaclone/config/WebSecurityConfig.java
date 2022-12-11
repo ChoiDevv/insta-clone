@@ -27,20 +27,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception
     {
         http.authorizeRequests()
-                .mvcMatchers("/", "/sign-up", "/sign-in").permitAll()
-                .mvcMatchers("/admin").hasRole("ROLE_ADMIN")
-                .mvcMatchers("/main").hasRole("ROLE_USER")
+                .mvcMatchers("/**", "/index", "/sign-up").permitAll()
+                .mvcMatchers("/api/v1/**").permitAll()
+                .mvcMatchers("/admin").hasRole("ADMIN")
+                .mvcMatchers("/main").hasRole("USER")
                 .anyRequest().authenticated();
 
         http.formLogin()
-                .loginPage("/login")
+                .loginPage("/sign-in")
                 .permitAll();
 
         http.httpBasic();
 
         http.logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/index");
 
         http.csrf()
                 .disable()

@@ -18,31 +18,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UserRepositoryTest {
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UserRepository usersRepository;
 
     @After
     public void cleanUp() {
         usersRepository.deleteAll();
-    }
-
-    @Test
-    public void 유저_저장을_테스트합니다() {
-        UserInfoRequestDto info = UserInfoRequestDto.builder()
-                .phoneNumber("phoneNumber")
-                .email("email")
-                .name("name")
-                .username("username")
-                .password("password")
-                .build();
-
-        Users user = new Users(info.getPhoneNumber(), info.getEmail(), info.getPhoneNumber(), info.getUsername(), info.getPassword());
-        usersRepository.save(user);
-
-        //when
-        List<Users> usersList = usersRepository.findAll();
-
-        //then
-        Users users = usersList.get(0);
-        assertThat(users.getPhoneNumber()).isEqualTo("phoneNumber");
     }
 }
