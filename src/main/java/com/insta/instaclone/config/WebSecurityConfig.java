@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -29,28 +30,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
-        http.authorizeRequests()
-                .mvcMatchers("/**", "/index", "/sign-up").permitAll()
-                .mvcMatchers("/api/v1/**").permitAll()
-                .mvcMatchers("/admin").hasRole("ADMIN")
-                .mvcMatchers("/main").hasRole("USER")
-                .anyRequest().authenticated();
-
-        http.formLogin()
-                .loginPage("/sign-in")
-                .permitAll();
-
-        http.logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/sign-in");
-
-        http.csrf()
-                .disable()
-                .authorizeRequests();
-
-        http.sessionManagement()
-                .maximumSessions(1)
-                .maxSessionsPreventsLogin(false);
+        http.csrf().disable()
+                        .authorizeRequests()
+                            .antMatchers("/main/**")
+                            .authenticated()
+                        .anyRequest()
+                            .permitAll()
+                        .and()
+                        .formLogin()
+                            .loginPage("/sign-in")
+                            .loginProcessingUrl("/login")
+                            .defaultSuccessUrl("/main");
 
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
     }

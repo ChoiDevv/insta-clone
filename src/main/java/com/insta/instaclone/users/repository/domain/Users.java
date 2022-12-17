@@ -27,9 +27,13 @@ public class Users {
     @Column
     private String email;
 
-    public Users(String username, String password, String email) {
+    @Column
+    private String role;
+
+    public Users(String username, String password, String email, String role) {
         this.username = username;
         this.password = new BCryptPasswordEncoder().encode(password);
         this.email = email;
+        this.role = role;
     }
 }

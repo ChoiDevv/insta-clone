@@ -1,10 +1,10 @@
-{{>layout/header}}
+{{>header}}
 
 <h1>회원가입</h1>
 
 <div class="col-md-12">
     <div class="col-md-4">
-        <form>
+        <form action="/api/v1/sign-up" method="POST">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" class="form-control" name="username" id="username" placeholder="아이디를 입력하세요.">
@@ -19,8 +19,8 @@
             </div>
         </form>
         <a href="/" role="button" class="btn btn-secondary">취소</a>
-        <button type="button" class="btn btn-primary" id="btn-register">회원가입</button>
+        <button type="submit" class="btn btn-primary" id="btn-register">회원가입</button>
     </div>
 </div>
 
-{{>layout/footer}}
+{{>footer}}

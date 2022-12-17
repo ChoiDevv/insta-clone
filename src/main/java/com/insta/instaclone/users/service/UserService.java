@@ -13,8 +13,8 @@ public class UserService {
     private final UserRepository userRepository;
 
     public Long create(UserInfoRequestDto dto) {
-
-        Users user = new Users(dto.getUsername(), dto.getPassword(), dto.getEmail());
+        String role = "ROLE_USER";
+        Users user = new Users(dto.getUsername(), dto.getPassword(), dto.getEmail(), role);
         return userRepository.save(user).getId();
     }
 }
